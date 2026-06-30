@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
 #include <string>
 #include <cmath>
@@ -49,8 +48,7 @@ bool apply(float a, float b, int op, float& res) {
 
 // Build expression string and evaluate result according to the shape.
 // The expressions are constructed without an outermost pair of redundant parentheses.
-bool try_shape(const vector<int>& nums, int shape, int op1, int op2, int op3,
-               string& expr, float& result) {
+bool try_shape(int* nums, int shape, int op1, int op2, int op3, string& expr, float& result) {
     float a = (float)nums[0], b = (float)nums[1], c = (float)nums[2], d = (float)nums[3];
     float r1, r2, r;
     string s1, s2, s3, s4;
@@ -58,7 +56,6 @@ bool try_shape(const vector<int>& nums, int shape, int op1, int op2, int op3,
     s2 = to_string(nums[1]);
     s3 = to_string(nums[2]);
     s4 = to_string(nums[3]);
-
     if (shape == 0) { // ((a op1 b) op2 c) op3 d
         if (!apply(a, b, op1, r1)) return false;
         if (!apply(r1, c, op2, r2)) return false;
@@ -90,11 +87,9 @@ bool try_shape(const vector<int>& nums, int shape, int op1, int op2, int op3,
 }
 
 int main() {
-    int a, b, c, d;
-    cin >> a >> b >> c >> d;
-    vector<int> nums = {a, b, c, d};
-    sort(nums.begin(), nums.end());
-
+    int nums[4];
+    for(int i=0;i<4;++i)cin>>nums[i];
+    sort(nums, nums + 4);
     do {
         for (int op1 = 0; op1 < 9; ++op1) {
             for (int op2 = 0; op2 < 9; ++op2) {
@@ -111,7 +106,6 @@ int main() {
                 }
             }
         }
-    } while (next_permutation(nums.begin(), nums.end()));
-
+    } while (next_permutation(nums, nums + 4));
     cout << "No solution" << endl;
 }
