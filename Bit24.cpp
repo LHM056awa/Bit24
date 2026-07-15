@@ -87,8 +87,11 @@ bool try_shape(int* nums, int shape, int op1, int op2, int op3, string& expr, fl
 }
 
 int main() {
+    ios::sync_with_stdio(false);
     int nums[4];
-    for(int i=0;i<4;++i)cin>>nums[i];
+    for(int i=0;i<4;++i) {
+        cin>>nums[i];
+    }
     sort(nums, nums + 4);
     do {
         for (int op1 = 0; op1 < 9; ++op1) {
@@ -97,8 +100,7 @@ int main() {
                     for (int shape = 0; shape < 5; ++shape) {
                         string expr;
                         float res;
-                        if (try_shape(nums, shape, op1, op2, op3, expr, res) &&
-                            fabs(res - 24.0f) < 1e-4f) {
+                        if (try_shape(nums, shape, op1, op2, op3, expr, res) && fabs(res - 24.0f) < 1e-4f) {
                             cout << "/24 " << expr << endl;
                             return 0;
                         }
